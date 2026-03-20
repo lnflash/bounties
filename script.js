@@ -123,8 +123,110 @@ function stats(items) {
   document.getElementById('stat-done').textContent = String(items.filter(x => x.status === 'Paid').length);
 }
 
+let ALL_ITEMS = [];
+
+function buildCard(b) {
+  const card = document.createElement('article');
+  card.className = 'card' + (b.status === 'Paid' ? ' paid' : '') + (b.isBundle ? ' bundle' : '');
+  card.dataset.level = b.level;
+  card.dataset.status = b.status.toLowerCase().replace(/\s+/g, '-');
+  card.dataset.search = (b.title + ' ' + b.repo + ' ' + b.categories.join(' ')).toLowerCase();
+
+  // Col 1 — tier icon
+  const icon = document.createElement('div');
+  icon.className = 'card-icon';
+  icon.textContent = META[b.level].icon;
+
+  // Col 2 top — title
+  const top = document.createElement('div');
+  top.className = 'card-top';
+  const t = document.createElement('h3');
+  t.className = 'card-title';
+  const a = document.createElement('a');
+  a.href = b.url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.textContent = b.title;
+  t.appendChild(a);
+  top.appendChild(t);
+
+  // Col 2 bottom — meta badges OR bundle info
+  let meta;
+  if (b.isBundle && b.linkedIssues && b.linkedIssues.length > 0) {
+    meta = document.createElement('div');
+    meta.className = 'bundle-info';
+    meta.innerHTML = '📦 ' + b.linkedIssues.map(li =>
+      '<a href="' + li.url + '" target="_blank" rel="noopener">' + li.key + '</a>'
+    ).join(' + ');
+  } else {
+    meta = document.createElement('div');
+    meta.className = 'card-meta';
+    const sb = document.createElement('span');
+    sb.className = 'badge ' + (STATUS_CLS[b.status] || 'badge-open');
+    sb.textContent = b.status;
+    meta.appendChild(sb);
+    b.categories.slice(0, 2).forEach(cat => {
+      const cb = document.createElement('span');
+      cb.className = 'badge badge-cat';
+      cb.textContent = cat;
+      meta.appendChild(cb);
+    });
+  }
+
+  // Col 3 — sats + repo + comments
+  const foot = document.createElement('div');
+  foot.className = 'card-footer';
+  const sa = document.createElement('span');
+  sa.className = 'sats-amount';
+  sa.textContent = b.sats ? fmt(b.sats) + ' ⚡' : '—';
+  const rn = document.createElement('span');
+  rn.className = 'repo-name';
+  rn.textContent = b.isBundle ? 'multi-repo' : b.repo;
+  const co = document.createElement('span');
+  co.className = 'comments';
+  co.textContent = '💬 ' + String(b.comments || 0);
+  foot.appendChild(sa);
+  foot.appendChild(rn);
+  foot.appendChild(co);
+
+  card.appendChild(icon);
+  card.appendChild(top);
+  card.appendChild(meta);
+  card.appendChild(foot);
+  return card;
+}
+
+function applyFilter() {
+  const query = (document.getElementById('search-input').value || '').toLowerCase().trim();
+  const activeFilter = (document.querySelector('.filter-pill.active') || {}).dataset?.filter || 'all';
+
+  LEVELS.forEach(lv => {
+    const sec = document.getElementById('section-' + lv);
+    if (!sec) return;
+    const grid = sec.querySelector('.bounties-grid');
+    let visible = 0;
+    Array.from(grid.children).forEach(card => {
+      const lvMatch = activeFilter === 'all' || activeFilter === 'paid'
+        ? true
+        : card.dataset.level === activeFilter;
+      const paidMatch = activeFilter === 'paid'
+        ? card.classList.contains('paid')
+        : !card.classList.contains('paid');
+      const searchMatch = !query || card.dataset.search.includes(query);
+      const show = lvMatch && paidMatch && searchMatch;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    const countEl = sec.querySelector('.level-count');
+    if (countEl) countEl.textContent = String(visible);
+    sec.classList.toggle('all-hidden', visible === 0);
+  });
+}
+
 function render(items) {
+  ALL_ITEMS = items;
   container.innerHTML = '';
+
   const groups = { spark: [], flame: [], eruption: [], summit: [] };
   items.forEach(i => groups[i.level].push(i));
 
@@ -134,6 +236,7 @@ function render(items) {
 
     const sec = document.createElement('section');
     sec.className = 'level-section';
+    sec.id = 'section-' + lv;
 
     const h = document.createElement('div');
     h.className = 'level-header';
@@ -150,74 +253,28 @@ function render(items) {
     grid.className = 'bounties-grid';
 
     list.sort((a, b) => (b.sats || 0) - (a.sats || 0)).forEach(b => {
-      const card = document.createElement('article');
-      card.className = 'card' + (b.status === 'Paid' ? ' paid' : '') + (b.isBundle ? ' bundle' : '');
-      card.dataset.level = b.level;
-
-      const top = document.createElement('div');
-      top.className = 'card-top';
-      const t = document.createElement('h3');
-      t.className = 'card-title';
-      const a = document.createElement('a');
-      a.href = b.url;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.textContent = b.title;
-      t.appendChild(a);
-      top.appendChild(t);
-
-      // Bundle badge
-      if (b.isBundle && b.linkedIssues && b.linkedIssues.length > 0) {
-        const bundleInfo = document.createElement('div');
-        bundleInfo.className = 'bundle-info';
-        bundleInfo.innerHTML = '📦 Bundle: ' + b.linkedIssues.map(li =>
-          '<a href="' + li.url + '" target="_blank" rel="noopener">' + li.key + '</a>'
-        ).join(' + ');
-        top.appendChild(bundleInfo);
-      }
-
-      const meta = document.createElement('div');
-      meta.className = 'card-meta';
-      const lb = document.createElement('span');
-      lb.className = 'badge ' + META[b.level].cls;
-      lb.textContent = META[b.level].icon + ' ' + META[b.level].label;
-      const sb = document.createElement('span');
-      sb.className = 'badge ' + (STATUS_CLS[b.status] || 'badge-open');
-      sb.textContent = b.status;
-      meta.appendChild(lb);
-      meta.appendChild(sb);
-      b.categories.forEach(cat => {
-        const cb = document.createElement('span');
-        cb.className = 'badge badge-cat';
-        cb.textContent = cat;
-        meta.appendChild(cb);
-      });
-
-      const foot = document.createElement('div');
-      foot.className = 'card-footer';
-      const rn = document.createElement('span');
-      rn.className = 'repo-name';
-      rn.textContent = b.isBundle ? 'Multiple repos' : b.repo;
-      const sa = document.createElement('span');
-      sa.className = 'sats-amount';
-      sa.textContent = fmt(b.sats) + ' sats';
-      const co = document.createElement('span');
-      co.className = 'comments';
-      co.textContent = '💬 ' + String(b.comments || 0);
-      foot.appendChild(rn);
-      foot.appendChild(sa);
-      foot.appendChild(co);
-
-      card.appendChild(top);
-      card.appendChild(meta);
-      card.appendChild(foot);
-      grid.appendChild(card);
+      grid.appendChild(buildCard(b));
     });
 
     sec.appendChild(h);
     sec.appendChild(grid);
     container.appendChild(sec);
   });
+
+  // Show filter bar
+  document.getElementById('filter-bar').classList.remove('hidden');
+
+  // Wire up filter pills
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      applyFilter();
+    });
+  });
+
+  // Wire up search
+  document.getElementById('search-input').addEventListener('input', applyFilter);
 }
 
 async function init() {
