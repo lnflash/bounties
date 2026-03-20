@@ -152,6 +152,7 @@ function render(items) {
     list.sort((a, b) => (b.sats || 0) - (a.sats || 0)).forEach(b => {
       const card = document.createElement('article');
       card.className = 'card' + (b.status === 'Paid' ? ' paid' : '') + (b.isBundle ? ' bundle' : '');
+      card.dataset.level = b.level;
 
       const top = document.createElement('div');
       top.className = 'card-top';
