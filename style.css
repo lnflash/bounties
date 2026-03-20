@@ -1,0 +1,82 @@
+/* Flash Bounty Board - style.css */
+:root {
+  --bg: #0d1117;
+  --bg2: #161b22;
+  --bg3: #21262d;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --accent: #f7931a;
+  --spark: #7ED321;
+  --flame: #F5A623;
+  --eruption: #E74C3C;
+  --summit: #9B59B6;
+  --green: #2ea043;
+  --blue: #1f6feb;
+  --purple: #8b5cf6;
+  --lblue: #58a6ff;
+  --gray: #6e7681;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+#app{display:flex;flex-direction:column;min-height:100vh}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5rem}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:1rem 0;gap:1rem;flex-wrap:wrap}
+.logo-area{display:flex;align-items:center;gap:1rem}
+.flash-bolt{font-size:2.5rem;line-height:1;filter:drop-shadow(0 0 8px rgba(247,147,26,0.8))}
+.title-group h1{font-size:1.5rem;font-weight:700;color:var(--text);white-space:nowrap}
+.subtitle{color:var(--text2);font-size:0.9rem}
+.header-nav{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.header-nav a{color:var(--text2);font-size:0.9rem;transition:color 0.2s}
+.header-nav a:hover{color:var(--text);text-decoration:none}
+.btn-contribute{background:var(--accent);color:#000!important;padding:0.5rem 1rem;border-radius:6px;font-weight:600;font-size:0.85rem;transition:opacity 0.2s}
+.btn-contribute:hover{opacity:0.9;text-decoration:none}
+.stats-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:1rem 1.5rem}
+.stats-bar{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-val{display:block;font-size:1.8rem;font-weight:700;color:var(--accent);line-height:1}
+.stat-label{font-size:0.8rem;color:var(--text2);text-transform:uppercase;letter-spacing:0.05em}
+main{flex:1;max-width:1200px;width:100%;margin:2rem auto;padding:0 1.5rem}
+.loading{text-align:center;padding:4rem 2rem;color:var(--text2)}
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error{background:#2d1b1b;border:1px solid #5c2020;color:#f85149;padding:1rem 1.5rem;border-radius:8px;margin:1rem 0}
+.hidden{display:none!important}
+.level-section{margin-bottom:2.5rem}
+.level-header{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.25rem;padding-bottom:0.75rem;border-bottom:2px solid var(--border)}
+.level-title{font-size:1.25rem;font-weight:700}
+.level-count{background:var(--bg3);color:var(--text2);padding:0.2rem 0.6rem;border-radius:12px;font-size:0.85rem}
+.bounties-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1.25rem;transition:border-color 0.2s,transform 0.15s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;margin-bottom:0.75rem}
+.card-title{font-size:0.95rem;font-weight:600;color:var(--text);line-height:1.4}
+.card-title a{color:var(--text)}
+.card-title a:hover{color:var(--accent);text-decoration:none}
+.card-meta{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem}
+.badge{display:inline-flex;align-items:center;gap:0.25rem;padding:0.2rem 0.6rem;border-radius:12px;font-size:0.75rem;font-weight:600;white-space:nowrap}
+.badge-level-spark{background:rgba(126,211,33,0.15);color:var(--spark);border:1px solid rgba(126,211,33,0.3)}
+.badge-level-flame{background:rgba(245,166,35,0.15);color:var(--flame);border:1px solid rgba(245,166,35,0.3)}
+.badge-level-eruption{background:rgba(231,76,60,0.15);color:var(--eruption);border:1px solid rgba(231,76,60,0.3)}
+.badge-level-summit{background:rgba(155,89,182,0.15);color:var(--summit);border:1px solid rgba(155,89,182,0.3)}
+.badge-open{background:rgba(46,160,67,0.15);color:#3fb950;border:1px solid rgba(46,160,67,0.3)}
+.badge-claimed{background:rgba(31,111,235,0.15);color:#58a6ff;border:1px solid rgba(31,111,235,0.3)}
+.badge-in-progress{background:rgba(139,92,246,0.15);color:#a78bfa;border:1px solid rgba(139,92,246,0.3)}
+.badge-review{background:rgba(88,166,255,0.15);color:#79c0ff;border:1px solid rgba(88,166,255,0.3)}
+.badge-paid{background:rgba(110,118,129,0.15);color:var(--gray);border:1px solid rgba(110,118,129,0.3)}
+.badge-cat{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid var(--border)}
+.repo-name{font-size:0.8rem;color:var(--text2)}
+.sats-amount{font-size:0.9rem;font-weight:700;color:var(--accent)}
+.comments{font-size:0.8rem;color:var(--text2)}
+.paid .card-title a{text-decoration:line-through;opacity:0.6}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:1.5rem}
+.footer-inner{max-width:1200px;margin:0 auto;text-align:center}
+.footer-tagline{color:var(--text2);margin-bottom:0.75rem}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{color:var(--text2);font-size:0.85rem;transition:color 0.2s}
+.footer-links a:hover{color:var(--accent);text-decoration:none}
+@media(max-width:640px){.stats-bar{gap:1rem}.stat-val{font-size:1.4rem}.bounties-grid{grid-template-columns:1fr}.header-nav{gap:0.5rem}}
