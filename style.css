@@ -78,11 +78,23 @@ header {
   line-height: 1;
   filter: drop-shadow(0 0 5px var(--green-glow));
 }
+.logo-link { display: flex; align-items: center; }
+.flash-logo-img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+.nav-divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  flex-shrink: 0;
+}
 .nav-wordmark {
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
 }
 /* keep these selectors for any leftover references */
 .title-group h1 { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
