@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Flash Bounty Board - Earn Bitcoin contributing to Flash open source">
-  <title>Flash Bounty Board &#x26A1;</title>
+  <meta name="description" content="Flash Bounty Board — Earn Bitcoin contributing to Flash open source">
+  <title>Flash Bounty Board ⚡</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x26A1;</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,34 +12,123 @@
 </head>
 <body>
 <div id="app">
+
+  <!-- Sticky nav -->
   <header>
     <div class="header-inner">
       <div class="logo-area">
-        <span class="flash-bolt">&#x26A1;</span>
-        <div class="title-group">
-          <h1>Flash Bounty Board &#x26A1;</h1>
-          <p class="subtitle">Earn Bitcoin for contributing to Flash open source</p>
-        </div>
+        <span class="flash-bolt">⚡</span>
+        <span class="nav-wordmark">Flash Bounties</span>
       </div>
       <nav class="header-nav">
         <a href="https://getflash.io" target="_blank" rel="noopener">getflash.io</a>
         <a href="https://github.com/lnflash" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/lnflash/flash/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="btn-contribute">&#x1F4D6; How to Contribute</a>
+        <a href="https://github.com/lnflash/flash/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="btn-contribute">📖 How to Contribute</a>
       </nav>
     </div>
   </header>
 
+  <!-- Hero section -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Open Source · Bitcoin Rewards · Caribbean-built</div>
+      <h1 class="hero-title">Get paid in Bitcoin<br>to build Flash.</h1>
+      <p class="hero-sub">Flash is open source. Every bounty is a real problem we need solved — pick one, fix it, get paid in sats directly to your Lightning wallet. No middlemen. No waiting.</p>
+      <div class="hero-cta-row">
+        <a href="https://github.com/lnflash/flash/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="hero-cta-primary">Start contributing →</a>
+        <a href="https://discord.gg/RHMb7nJfFt" target="_blank" rel="noopener" class="hero-cta-secondary">Join Discord</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats bar -->
   <div class="stats-bar" id="stats">
     <div class="stat"><span class="stat-val" id="stat-total">-</span><span class="stat-label">Total Bounties</span></div>
-    <div class="stat"><span class="stat-val" id="stat-sats">-</span><span class="stat-label">Sats Pool &#x26A1;</span></div>
+    <div class="stat"><span class="stat-val" id="stat-sats">-</span><span class="stat-label">Sats Pool ⚡</span></div>
     <div class="stat"><span class="stat-val" id="stat-open">-</span><span class="stat-label">Open</span></div>
     <div class="stat"><span class="stat-val" id="stat-done">-</span><span class="stat-label">Completed</span></div>
   </div>
 
+  <!-- How it works -->
+  <section class="explainer">
+    <div class="explainer-inner">
+
+      <div class="explainer-block">
+        <h2 class="explainer-heading">How it works</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <strong>Pick a bounty</strong>
+              <span>Browse the board below. Click any bounty to open the GitHub issue and read the full spec.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <strong>Claim it</strong>
+              <span>Comment on the issue to claim it. A maintainer will label it <em>In Progress</em> and assign it to you.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <strong>Build &amp; submit a PR</strong>
+              <span>Work in your own fork. Open a pull request when ready and link it to the issue.</span>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <strong>Get paid in sats</strong>
+              <span>Once your PR is merged, share your Lightning invoice or address. Payment is sent directly — no accounts, no delays.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="explainer-block">
+        <h2 class="explainer-heading">Bounty levels</h2>
+        <div class="levels-grid">
+          <div class="level-card" data-lv="spark">
+            <div class="level-card-icon">⚡</div>
+            <div class="level-card-body">
+              <strong>Spark</strong>
+              <span>Good first issues. Small scope, clear requirements. Great entry point if you're new to the codebase.</span>
+            </div>
+          </div>
+          <div class="level-card" data-lv="flame">
+            <div class="level-card-icon">🔥</div>
+            <div class="level-card-body">
+              <strong>Flame</strong>
+              <span>Mid-complexity features and fixes. Requires some familiarity with the Flash stack.</span>
+            </div>
+          </div>
+          <div class="level-card" data-lv="eruption">
+            <div class="level-card-icon">🌋</div>
+            <div class="level-card-body">
+              <strong>Eruption</strong>
+              <span>Hard problems. Significant engineering effort. Higher reward. Deep codebase knowledge required.</span>
+            </div>
+          </div>
+          <div class="level-card" data-lv="summit">
+            <div class="level-card-icon">🏔️</div>
+            <div class="level-card-body">
+              <strong>Summit</strong>
+              <span>Legendary difficulty. Architecture-level work. The biggest rewards on the board. Not for the faint-hearted.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bounty list -->
   <main id="main">
     <div class="loading" id="loading">
       <div class="spinner"></div>
-      <p>Loading bounties from GitHub...</p>
+      <p>Loading bounties from GitHub…</p>
     </div>
     <div id="error" class="error hidden"></div>
     <div class="filter-bar hidden" id="filter-bar">
@@ -61,7 +150,7 @@
 
   <footer>
     <div class="footer-inner">
-      <p class="footer-tagline">Powered by Flash &#x26A1; | Built in the Caribbean &#x1F334;</p>
+      <p class="footer-tagline">Powered by Flash ⚡ | Built in the Caribbean 🌴</p>
       <div class="footer-links">
         <a href="https://github.com/lnflash" target="_blank" rel="noopener">GitHub Org</a>
         <a href="https://discord.gg/RHMb7nJfFt" target="_blank" rel="noopener">Discord</a>
@@ -70,6 +159,7 @@
       </div>
     </div>
   </footer>
+
 </div>
 <script src="script.js"></script>
 </body>
