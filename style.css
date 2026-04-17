@@ -171,14 +171,15 @@ header {
   max-width: 560px;
   margin: 0 auto 2rem;
   padding: 0.85rem 1rem;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 168, 85, 0.28);
   border-radius: 14px;
-  background: rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(255, 168, 85, 0.10), rgba(255, 168, 85, 0.04));
   color: var(--text-primary);
   line-height: 1.55;
   font-size: 0.95rem;
+  box-shadow: 0 0 0 1px rgba(255, 168, 85, 0.10), 0 0 28px rgba(255, 168, 85, 0.22);
 }
-.hero-note strong { color: var(--green); }
+.hero-note strong { color: #ffb36b; }
 .hero-cta-row {
   display: flex;
   align-items: center;
